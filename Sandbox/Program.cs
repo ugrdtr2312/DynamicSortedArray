@@ -1,18 +1,18 @@
-﻿using DynamicSrotedArray;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using DynamicSortedArray;
 
 namespace Sandbox
 {
     
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            DynamicSortedArray<int> arr = new DynamicSortedArray<int>();
+            var arr = new DynamicSortedArray<int>();
             
-            arr.Added += (object sender, AddToArrayEventArgs<int> args) => Console.WriteLine(args.Message);
-            arr.Removed += (object sender, RemoveFromArrayEventArgs<int> args) => Console.WriteLine(args.Message);
+            arr.Added += (sender, arguments) => Console.WriteLine(arguments.Message);
+            arr.Removed += (sender, arguments) => Console.WriteLine(arguments.Message);
             
             arr.Add(3, 1, 5, 10, 5);
             OutputData(arr);
@@ -29,7 +29,7 @@ namespace Sandbox
             Console.ReadKey();
         }
 
-        static void OutputData(DynamicSortedArray<int> collection)
+        private static void OutputData(IEnumerable<int> collection)
         {
             Console.WriteLine("Your collection:");
             foreach (var item in collection)

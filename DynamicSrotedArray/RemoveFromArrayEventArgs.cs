@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace DynamicSrotedArray
+namespace DynamicSortedArray
 {
     public sealed class RemoveFromArrayEventArgs<T> : EventArgs
     {
 
-        public T RemovedItem { get; private set; }
-        public string Message { get; private set; }
+        public T RemovedItem { get; }
+        public string Message { get; }
 
         public RemoveFromArrayEventArgs(T removedItem, string message)
         {

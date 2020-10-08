@@ -1,28 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 
-namespace DynamicSrotedArray
+namespace DynamicSortedArray
 {
     class ArrayEnumerator<T> : IEnumerator<T>
     {
-        Node<T> head;
-        bool flag = false;
+        Node<T> _head;
+        bool _flag;
 
         public ArrayEnumerator(Node<T> headNode)
         {
-            head = headNode;
+            _head = headNode;
         }
 
         public T Current
         {
             get
             {
-                if (flag)
+                if (_flag)
                     throw new InvalidOperationException();
 
-                T temp = head.Value;
-                head = head.NextNode;
+                var temp = _head.Value;
+                _head = _head.NextNode;
                 return temp;
             }
         }
@@ -36,13 +36,10 @@ namespace DynamicSrotedArray
 
         public bool MoveNext()
         {
-            if (head != null)
+            if (_head != null)
                 return true;
-            else
-            {
-                flag = true;
-                return false;
-            }
+            _flag = true;
+            return false;
         }
 
         public void Reset()

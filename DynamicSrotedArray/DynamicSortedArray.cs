@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace DynamicSrotedArray
+namespace DynamicSortedArray
 {
-    public sealed class DynamicSortedArray<T> : IEnumerable<T>, ICollection<T> where T : IComparable
+    public sealed class DynamicSortedArray<T> : ICollection<T> where T : IComparable
     {
         #region Basic DynamicSortedArray fields, prop, constructors
-        Node<T> head;
-        IEnumerator<T> Enumerator;
+        Node<T> _head;
+        readonly IEnumerator<T> _enumerator;
         public event EventHandler<AddToArrayEventArgs<T>> Added;
         public event EventHandler<RemoveFromArrayEventArgs<T>> Removed;
         public int Count { get; private set; }
@@ -23,7 +22,7 @@ namespace DynamicSrotedArray
 
         public DynamicSortedArray(IEnumerator<T> enumerator) 
         {
-            Enumerator = enumerator;
+            _enumerator = enumerator;
         }
         #endregion
 
@@ -33,52 +32,58 @@ namespace DynamicSrotedArray
         /// </summary>
         public void Add(T item)
         {
-            int isGreater = 0;                                  //if item == null its value is 0
-            int? comparerCheck = head?.Value?.CompareTo(item);  
+            var isGreater = 0;                                  //if item == null its value is 0
+            var comparerCheck = _head?.Value?.CompareTo(item);  
             if (comparerCheck != null && item != null)
                  isGreater = comparerCheck <= 0 ? 1 : -1;       //if element in head is greater returns -1
 
-            if (isGreater == 1)
+            switch (isGreater)
             {
-                Node<T> temp = head;
-
-                while (temp.NextNode != null)
+                case 1:
                 {
-                    if (temp?.NextNode?.Value?.CompareTo(item) > 0 == true) break;
-                    else temp = temp.NextNode;
-                }
+                    var temp = _head;
 
-                if (temp.NextNode != null)
+                    while (temp?.NextNode != null)
+                    {
+                        if (temp?.NextNode?.Value?.CompareTo(item) > 0) break;
+                        
+                        temp = temp.NextNode;
+                    }
+
+                    if (temp?.NextNode != null)
+                    {
+                        var nextNode = temp.NextNode;
+                        temp.NextNode = new Node<T>(item) {NextNode = nextNode};
+
+                        Added?.Invoke(this, new AddToArrayEventArgs<T>(item, $"{item} added"));
+                    }
+                    else
+                    {
+                        if (temp != null) temp.NextNode = new Node<T>(item);
+                        Added?.Invoke(this, new AddToArrayEventArgs<T>(item, $"{item} added in tail"));
+                    }
+
+                    break;
+                }
+                case -1:
                 {
-                    Node<T> nextNode = temp.NextNode;
-                    temp.NextNode = new Node<T>(item);
+                    var temp = new Node<T>(item) {NextNode = _head};
 
-                    temp.NextNode.NextNode = nextNode;
-                    Added?.Invoke(this, new AddToArrayEventArgs<T>(item, $"{item} added"));
+                    _head = temp;
+                    Added?.Invoke(this, new AddToArrayEventArgs<T>(item, $"{item} added in head"));
+                    break;
                 }
-                else
+                default:
                 {
-                    temp.NextNode = new Node<T>(item);
-                    Added?.Invoke(this, new AddToArrayEventArgs<T>(item, $"{item} added in tail"));
-                }
+                    if (_head == null)
+                    {
+                        _head = new Node<T>(item);
+                        Added?.Invoke(this, new AddToArrayEventArgs<T>(item, $"{item} added first element"));
+                    }
+                    else throw new ArgumentNullException();
 
-            }
-            else if (isGreater == -1)
-            {
-                Node<T> temp = new Node<T>(item);
-                temp.NextNode = head;
-
-                head = temp;
-                Added?.Invoke(this, new AddToArrayEventArgs<T>(item, $"{item} added in head"));
-            }
-            else 
-            {
-                if (head == null)
-                {
-                    head = new Node<T>(item);
-                    Added?.Invoke(this, new AddToArrayEventArgs<T>(item, $"{item} added first element"));
+                    break;
                 }
-                else throw new ArgumentNullException();
             }
 
             Count++;
@@ -90,7 +95,7 @@ namespace DynamicSrotedArray
         /// <param name="arr"></param>
         public void Add(params T[] arr)
         {
-            foreach (T item in arr)
+            foreach (var item in arr)
             {
                 Add(item);
             }
@@ -111,9 +116,8 @@ namespace DynamicSrotedArray
                     throw new IndexOutOfRangeException();
                 else
                 {
-                    Node<T> temp = head;
-
-                    for (int i = 0; i < index; i++)
+                    var temp = _head;
+                    for (var i = 0; i < index; i++)
                     {
                         temp = temp.NextNode;
                     }
@@ -129,7 +133,7 @@ namespace DynamicSrotedArray
         public void Clear()
         {
             Count = 0;
-            head = null;
+            _head = null;
         }
 
         /// <summary>
@@ -139,7 +143,7 @@ namespace DynamicSrotedArray
         /// <returns>True if collection contains <c>item</c>, else it returns false.</returns>
         public bool Contains(T item)
         {
-            Node<T> temp = head;
+            var temp = _head;
 
             while (temp != null)
             {
@@ -151,20 +155,19 @@ namespace DynamicSrotedArray
         }
 
         /// <summary>
-        /// Remowe <c>item</c> from collection
+        /// Remove <c>item</c> from collection
         /// </summary>
         /// <param name="item">Element to remove</param>
         /// <returns>True if <c>item</c> was removed, else it returns false.</returns>
         public bool Remove(T item)
         {
-            Node<T> temp = new Node<T>();
-            temp.NextNode = head;
+            var temp = new Node<T> {NextNode = _head};
 
-            while (temp.NextNode != null)
+            while (temp?.NextNode != null)
             {
                 if (temp.NextNode.Value.CompareTo(item) == 0)
                 {
-                    if (temp.NextNode == head) head = head.NextNode;
+                    if (temp.NextNode == _head) _head = _head.NextNode;
                     else temp.NextNode = temp.NextNode.NextNode;
                     Count--;
                     
@@ -178,28 +181,28 @@ namespace DynamicSrotedArray
         }
 
         /// <summary>
-        /// Copy element from <c>array</c> begining from <c>arrayIndex</c>
+        /// Copy element from <c>array</c> beginning from <c>arrayIndex</c>
         /// </summary>
         /// <param name="array"></param>
         /// <param name="arrayIndex"></param>
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new DynamicSrotedArrayException("Sorted dynamic array does not support this method because it makes no sense for this type.");
+            throw new DynamicSortedArrayException("Sorted dynamic array does not support this method because it makes no sense for this type.");
         }
 
         /// <summary>
-        /// Get <c>IEnumerator<T></c> of class
+        /// Get <c>IEnumerator &lt;T&gt;</c> of class
         /// </summary>
-        /// <returns>Returns <c>IEnumerator<T></c> of class</returns>
+        /// <returns>Returns <c>IEnumerator&lt;T&gt;</c> of class</returns>
         public IEnumerator<T> GetEnumerator()
         {
-            return Enumerator != null ? Enumerator : new ArrayEnumerator<T>(head);
+            return _enumerator ?? new ArrayEnumerator<T>(_head);
         }
 
         /// <summary>
-        /// Get <c>IEnumerator<T></c> of class
+        /// Get <c>IEnumerator&lt;T&gt;</c> of class
         /// </summary>
-        /// <returns>Returns <c>IEnumerator<T></c> of class</returns>
+        /// <returns>Returns <c>IEnumerator&lt;T&gt;</c> of class</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();

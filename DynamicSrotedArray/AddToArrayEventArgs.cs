@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace DynamicSrotedArray
+namespace DynamicSortedArray
 {
     public sealed class AddToArrayEventArgs<T> : EventArgs
     {
-        public T AddedItem { get; private set; }
-        public string Message { get; private set; }
+        public T AddedItem { get; }
+        public string Message { get; }
 
         public AddToArrayEventArgs(T addedItem, string message)
         {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DynamicSrotedArray
+﻿namespace DynamicSortedArray
 {
     class Node<T>
     {
