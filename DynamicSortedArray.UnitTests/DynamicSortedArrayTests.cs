@@ -7,7 +7,7 @@ namespace DynamicSortedArray.UnitTests
     {
         [Theory,
          InlineData(-1), InlineData(6)]
-        public void Indexer_InputsOutOfRangeIndexes_ThrowIndexOutOfRangeException(int value)
+        public void Indexer_InputOutOfRangeIndexes_ThrowIndexOutOfRangeException(int value)
         {
             //arrange
             var arr = new DynamicSortedArray<int> { {3, 1, 5, 8, 1, 3} };
@@ -15,28 +15,29 @@ namespace DynamicSortedArray.UnitTests
             Assert.Throws<IndexOutOfRangeException>(() => arr[value]);
         }
 
-        [Fact]
-        public void Indexer_CollectionContainsThisElements_ReturnTrue()
+        [Theory,
+         InlineData(0, 1), InlineData(2, 3), InlineData(5, 8)]
+        public void Indexer_ArrayContainsThisElementsUnderIndex_ReturnNothing(int index, int expectedValue)
         {
             //arrange
             var arr = new DynamicSortedArray<int> { { 3, 1, 5, 8, 1, 6 } };
-            //act & assert
-            Assert.True(1.Equals(arr[0]));
-            Assert.True(3.Equals(arr[2]));
-            Assert.True(8.Equals(arr[5]));
+            //act
+            var actual = arr[index];
+            //assert
+            Assert.Equal(actual, expectedValue);
         }
 
         [Fact]
         public void Add_CheckThatEventRaisedWhenAddingInBeginningOfArray_ReturnNothing()
         {
             //arrange
-            var arr = new DynamicSortedArray<int> { { 2, 2, 5, 8, 1, 6 } };
-            //act & assert
+            var arr = new DynamicSortedArray<int> {{2, 2, 5, 8, 1, 6}};
+            //act
             var receivedEvent = Assert.Raises<AddToArrayEventArgs<int>>(
                 a => arr.Added += a,
                 a => arr.Added -= a,
                 () => { arr.Add(0); });
-
+            //assert
             Assert.NotNull(receivedEvent);
 
             Assert.Equal(0, receivedEvent.Arguments.AddedItem);
@@ -44,16 +45,16 @@ namespace DynamicSortedArray.UnitTests
         }
 
         [Fact]
-        public void Add_CheckThatEventRaisedWhenAddingFirstElementOfArray_ReturnNothing()
+        public void Add_CheckThatEventRaisedWhenAddingFirstElementToArray_ReturnNothing()
         {
             //arrange
             var arr = new DynamicSortedArray<int>();
-            //act & assert
+            //act
             var receivedEvent = Assert.Raises<AddToArrayEventArgs<int>>(
                 a => arr.Added += a,
                 a => arr.Added -= a,
                 () => { arr.Add(0); });
-
+            //assert
             Assert.NotNull(receivedEvent);
 
             Assert.Equal(0, receivedEvent.Arguments.AddedItem);
@@ -65,12 +66,12 @@ namespace DynamicSortedArray.UnitTests
         {
             //arrange
             var arr = new DynamicSortedArray<int> { { 2, 2, 5, 8, 1, 6 } };
-            //act & assert
+            //act
             var receivedEvent = Assert.Raises<AddToArrayEventArgs<int>>(
                 a => arr.Added += a,
                 a => arr.Added -= a,
                 () => { arr.Add(14); });
-
+            //assert
             Assert.NotNull(receivedEvent);
 
             Assert.Equal(14, receivedEvent.Arguments.AddedItem);
@@ -82,12 +83,12 @@ namespace DynamicSortedArray.UnitTests
         {
             //arrange
             var arr = new DynamicSortedArray<int> { { 2, 2, 5, 8, 1, 6 } };
-            //act & assert
+            //act
             var receivedEvent = Assert.Raises<AddToArrayEventArgs<int>>(
                 a => arr.Added += a,
                 a => arr.Added -= a,
                 () => { arr.Add(4); });
-
+            //assert
             Assert.NotNull(receivedEvent);
 
             Assert.Equal(4, receivedEvent.Arguments.AddedItem);
@@ -95,40 +96,46 @@ namespace DynamicSortedArray.UnitTests
         }
 
         [Fact]
-        public void Add_AddElementInTheBeginning_ReturnTrue()
+        public void Add_AddElementInTheBeginning_ReturnNothing()
         {
             //arrange
             var arr = new DynamicSortedArray<int> { { 1, 2, 3, 4 } };
+            var addingValue = 0;
+            var expectedPosition = 0;
             //act
-            arr.Add(0);
+            arr.Add(addingValue);
             //assert
-            Assert.True(0.Equals(arr[0]));
+            Assert.Equal(addingValue, arr[expectedPosition]);
         }
 
         [Fact]
-        public void Add_AddElementInTheEnd_ReturnTrue()
+        public void Add_AddElementInTheEnd_ReturnNothing()
         {
             //arrange
             var arr = new DynamicSortedArray<int> { { 1, 2, 3, 4 } };
+            var addingValue = 5;
+            var expectedPosition = 4;
             //act
-            arr.Add(5);
+            arr.Add(addingValue);
             //assert
-            Assert.True(5.Equals(arr[4]));
+            Assert.Equal(addingValue, arr[expectedPosition]);
         }
 
         [Fact]
-        public void Add_AddElementInCenter_ReturnTrue()
+        public void Add_AddElementInCenter_ReturnNothing()
         {
             //arrange
-            var arr = new DynamicSortedArray<int> { { 1, 2, 3, 4 } };
+            var arr = new DynamicSortedArray<int> { { 1, 2, 4 } };
+            var addingValue = 3;
+            var expectedPosition = 2;
             //act
-            arr.Add(3);
+            arr.Add(addingValue);
             //assert
-            Assert.True(3.Equals(arr[2]));
+            Assert.Equal(addingValue, arr[expectedPosition]);
         }
 
         [Fact]
-        public void Add_AddNullElement_ArgumentNullException()
+        public void Add_AddNullElement_ThrowsArgumentNullException()
         {
             //arrange
             var arr = new DynamicSortedArray<string> { { "a", "b", "c" } };
@@ -162,7 +169,7 @@ namespace DynamicSortedArray.UnitTests
 
         [Theory,
          InlineData(3), InlineData(5), InlineData(6)]
-        public void Contains_CheckContainsWhenArrayEmpty_ReturnFalse(int value)
+        public void Contains_CheckContainsWhenArrayIsEmpty_ReturnFalse(int value)
         {
             //arrange
             var arr = new DynamicSortedArray<int>();
@@ -192,13 +199,14 @@ namespace DynamicSortedArray.UnitTests
             Assert.False(arr.Remove(value));
         }
 
-        [Fact]
-        public void Remove_CheckRemoveOfElementsFromEmptyArray_ReturnFalse()
+        [Theory,
+         InlineData(18), InlineData(57), InlineData(-8)]
+        public void Remove_CheckRemoveOfElementsFromEmptyArray_ReturnFalse(int value)
         {
             //arrange
             var arr = new DynamicSortedArray<int>();
             //act & assert
-            Assert.False(arr.Remove(8));
+            Assert.False(arr.Remove(value));
         }
 
         [Fact]
@@ -206,16 +214,17 @@ namespace DynamicSortedArray.UnitTests
         {
             //arrange
             var arr = new DynamicSortedArray<int> { { 2, 2, 5, 8, 1, 6 } };
-            //act & assert
+            var itemToRemove = 1;
+            //act 
             var receivedEvent = Assert.Raises<RemoveFromArrayEventArgs<int>>(
                 a => arr.Removed += a,
                 a => arr.Removed -= a,
-                () => { arr.Remove(1); });
-
+                () => { arr.Remove(itemToRemove); });
+            //assert
             Assert.NotNull(receivedEvent);
 
-            Assert.Equal(1, receivedEvent.Arguments.RemovedItem);
-            Assert.Equal("1 was removed", receivedEvent.Arguments.Message);
+            Assert.Equal(itemToRemove, receivedEvent.Arguments.RemovedItem);
+            Assert.Equal($"{itemToRemove} was removed", receivedEvent.Arguments.Message);
         }
 
         [Fact]
@@ -234,17 +243,19 @@ namespace DynamicSortedArray.UnitTests
         {
             //arrange
             var arr = new DynamicSortedArray<int> { { 2, 2, 5, 8, 1, 6 } };
+            var arrayToAdd = new[] {4, 5};
+            var positionToAdd = 5;
             //act & assert
-            Assert.Throws<DynamicSortedArrayException>(() => arr.CopyTo(new[] { 4, 5 }, 5));
+            Assert.Throws<DynamicSortedArrayException>(() => arr.CopyTo(arrayToAdd, positionToAdd));
         }
 
         [Fact]
-        public void GetEnumerator_CheckWithOriginEnumerator_NothingReturn()
+        public void GetEnumerator_CheckWithOriginEnumerator_DoNotThrowException()
         {
             //arrange
             var arr = new DynamicSortedArray<int> {{1, 2, 3, 4}};
-            //act
             var counter = 0;
+            //act
             foreach (var element in arr)
             {
                 if (element != arr[counter])
