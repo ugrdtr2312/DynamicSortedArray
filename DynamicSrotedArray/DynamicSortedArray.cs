@@ -33,7 +33,7 @@ namespace DynamicSortedArray
         public void Add(T item)
         {
             var isGreater = 0;                                  //if item == null its value is 0
-            var comparerCheck = _head?.Value?.CompareTo(item);  
+            var comparerCheck = _head?.Value.CompareTo(item);  
             if (comparerCheck != null && item != null)
                  isGreater = comparerCheck <= 0 ? 1 : -1;       //if element in head is greater returns -1
 
@@ -43,14 +43,14 @@ namespace DynamicSortedArray
                 {
                     var temp = _head;
 
-                    while (temp?.NextNode != null)
+                    while (temp.NextNode != null)
                     {
-                        if (temp?.NextNode?.Value?.CompareTo(item) > 0) break;
+                        if (temp.NextNode.Value.CompareTo(item) > 0) break;
                         
                         temp = temp.NextNode;
                     }
 
-                    if (temp?.NextNode != null)
+                    if (temp.NextNode != null)
                     {
                         var nextNode = temp.NextNode;
                         temp.NextNode = new Node<T>(item) {NextNode = nextNode};
@@ -163,7 +163,7 @@ namespace DynamicSortedArray
         {
             var temp = new Node<T> {NextNode = _head};
 
-            while (temp?.NextNode != null)
+            while (temp.NextNode != null)
             {
                 if (temp.NextNode.Value.CompareTo(item) == 0)
                 {
