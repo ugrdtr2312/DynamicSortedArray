@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DynamicSortedArray\DynamicSortedArray.csproj" />
     <ProjectReference Include="..\DynamicSrotedArray\DynamicSortedArray.csproj" />
   </ItemGroup>
 

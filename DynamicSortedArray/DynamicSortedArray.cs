@@ -37,6 +37,7 @@ namespace DynamicSortedArray
             if (comparerCheck != null && item != null)
                  isGreater = comparerCheck <= 0 ? 1 : -1;       //if element in head is greater returns -1
 
+            
             switch (isGreater)
             {
                 case 1:

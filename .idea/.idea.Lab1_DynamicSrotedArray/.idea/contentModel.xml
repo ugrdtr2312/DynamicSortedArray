@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Vladimir\.nuget\packages\microsoft.net.test.sdk\16.5.0\build\netcoreapp2.1" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="C:\Users\Vladimir\.nuget\packages\microsoft.testplatform.testhost\16.5.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
+    <e p="C:\Users\Vladimir\.nuget\packages\microsoft.testplatform.testhost\16.5.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
+    <e p="C:\Users\Vladimir\.nuget\packages\xunit.runner.visualstudio\2.4.0\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\Vladimir\.nuget\packages\xunit.runner.visualstudio\2.4.0\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\Vladimir\.nuget\packages\xunit.runner.visualstudio\2.4.0\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="C:\Users\Vladimir\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Vladimir\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_Lab1_DynamicSrotedArray.-901106971.00" t="ExcludeRecursive" />
+    <e p="D:\OneDrive\Рабочий стол\Учебка\.Net\Lab1-2_DynamicSortedArray" t="IncludeFlat">
+      <e p="DynamicSortedArray" t="IncludeRecursive">
+        <e p="AddToArrayEventArgs.cs" t="Include" />
+        <e p="ArrayEnumerator.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DynamicSortedArray.cs" t="Include" />
+        <e p="DynamicSortedArray.csproj" t="IncludeRecursive" />
+        <e p="DynamicSortedArrayException.cs" t="Include" />
+        <e p="Node.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="DynamicSortedArray.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="RemoveFromArrayEventArgs.cs" t="Include" />
+      </e>
+      <e p="DynamicSortedArray.UnitTests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DynamicSortedArray.UnitTests.csproj" t="IncludeRecursive" />
+        <e p="DynamicSortedArrayTests.cs" t="Include" />
+        <e p="MyArrayTestsAbstractions" t="Include">
+          <e p="MyArrayReferenceTests.cs" t="Include" />
+          <e p="MyArrayTests.cs" t="Include" />
+          <e p="MyArrayValuableTests.cs" t="Include" />
+        </e>
+        <e p="MyArrayTestsRealizations" t="Include">
+          <e p="MyArrayIntTests.cs" t="Include" />
+          <e p="MyArrayStringTests.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="DynamicSortedArray.UnitTests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TestResults" t="Include">
+          <e p="09899057-79ff-40d5-906e-1e6c6819bc98" t="Include">
+            <e p="coverage.cobertura.xml" t="Include" />
+          </e>
+          <e p="2f4707fa-16ac-46c7-ac14-85b2e7aa088f" t="Include">
+            <e p="coverage.cobertura.xml" t="Include" />
+          </e>
+          <e p="3758c5bd-97ed-4b5b-9c89-a712f300d06f" t="Include">
+            <e p="coverage.cobertura.xml" t="Include" />
+          </e>
+          <e p="9244cdc3-1c83-40a8-b2f9-2a15315ac07f" t="Include">
+            <e p="coverage.cobertura.xml" t="Include" />
+          </e>
+          <e p="94b6ba34-a7d1-49e2-9a35-022fccd0732f" t="Include">
+            <e p="coverage.cobertura.xml" t="Include" />
+          </e>
+          <e p="9e1e6dc8-edb1-4a45-aa21-4fc4c3947e01" t="Include">
+            <e p="coverage.cobertura.xml" t="Include" />
+          </e>
+          <e p="b1bad61b-f77f-4913-a8f3-00740531e24a" t="Include">
+            <e p="coverage.cobertura.xml" t="Include" />
+          </e>
+          <e p="b34c67df-031f-4258-8105-94974cecb252" t="Include">
+            <e p="coverage.cobertura.xml" t="Include" />
+          </e>
+          <e p="bc5c3f97-99aa-4908-8b68-1189d5f39077" t="Include">
+            <e p="coverage.cobertura.xml" t="Include" />
+          </e>
+          <e p="c9b2cdc8-a0cc-49a8-ab57-79ae224437bb" t="Include">
+            <e p="coverage.cobertura.xml" t="Include" />
+          </e>
+          <e p="e4029ef0-e891-41b0-adb0-64fe289e238f" t="Include">
+            <e p="coverage.cobertura.xml" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="Lab1_DynamicSrotedArray.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Sandbox" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Sandbox.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Sandbox.csproj" t="IncludeRecursive" />
+      </e>
+    </e>
+  </component>
+</project>

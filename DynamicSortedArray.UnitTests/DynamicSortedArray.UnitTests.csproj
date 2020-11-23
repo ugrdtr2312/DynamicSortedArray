@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DynamicSrotedArray\DynamicSortedArray.csproj" />
+    <ProjectReference Include="..\DynamicSortedArray\DynamicSortedArray.csproj" />
   </ItemGroup>
 
 </Project>
